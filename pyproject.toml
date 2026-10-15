@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "navigator-modular-api"
+version = "0.6.0"
+description = "Local modular media library, evidence tasks, rule checks and draft reports"
+readme = "README.md"
+license-files = ["THIRD_PARTY_NOTICES.md"]
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+local-models = ["torch>=2.6,<3", "transformers==5.19.0", "safetensors>=0.6,<1", "sentencepiece>=0.2,<1"]
+
+[project.scripts]
+navigator-api = "navigator.__main__:main"
+
+[tool.setuptools.packages.find]
+include = ["navigator*"]
+
+[tool.setuptools.package-data]
+navigator = ["workers/*.mjs"]

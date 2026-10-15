@@ -1,0 +1,16 @@
+{
+  "wheel_filename": "navigator_modular_api-0.6.0-py3-none-any.whl",
+  "wheel_sha256": "57c247102434d8b5fed2b15652b9a94791bdb095923ec01b057157e077b84786",
+  "wheel_bytes": 158410,
+  "forbidden_hits": 0,
+  "private_path_hits": 0,
+  "worker_packaged": true,
+  "notices_packaged": true,
+  "startup": true,
+  "health": true,
+  "authenticated_ingest_job_search": true,
+  "generation_calls": 0,
+  "model_loads": 0,
+  "shutdown_exit_code": 0,
+  "passed": true
+}

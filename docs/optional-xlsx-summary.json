@@ -1,0 +1,11 @@
+{
+  "scope": "synthetic native integration, authorized existing runtime only; SDK not bundled",
+  "tests_run": 11,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "passed": true,
+  "model_loads": 0,
+  "external_inference_calls": 0,
+  "dependencies_downloaded": 0
+}

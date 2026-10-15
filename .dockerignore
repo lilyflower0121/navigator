@@ -1,0 +1,8 @@
+# Positive allowlist: build context excludes local auth/DB, original-document, evaluation and outputs.
+**
+!Dockerfile
+!.dockerignore
+!navigator/
+!navigator/*.py
+!navigator/workers/
+!navigator/workers/*.mjs

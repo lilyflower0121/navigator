@@ -1,0 +1,62 @@
+# Navigator 隔離export 独立レビュー
+
+現時点の実装exportで、禁止された旧製品名称、私有絶対path、実credential、原資料、モデル資産、旧git履歴の混入は確認されなかった。既定APIはモデル・外部通信・子processなしで合成textを処理でき、namespace変更後のOpenAPI・worker配置・importも整合する。公開先と公開範囲は未選択であり、本レビューではpush、repository作成、visibility変更、paid/cloud操作を行っていない。
+
+## 最終状態と残る選択事項
+
+docs/VALIDATION.mdと4種の検証summaryが追加され、初稿で指摘したREADMEの未存在リンクは解消した。portable回帰450件、failure/error0、optional runtime class1skip、別途native XLSX11件PASSの分母を区別する。独立subsetは主回帰と重複するため件数を足さない説明も適切。
+
+旧source-title試験は、過去のsemantic hold期待を現行のsource確認要求へ更新したものとして文書化されており、初回不合格を隠していない。実装の条件確認境界に沿う期待である。
+
+プロジェクト自身の配布licenseは未選択とTHIRD_PARTY_NOTICES.mdに明示されている。これは勝手にOSS許諾を付けない点で正確だが、公開先・範囲と合わせて所有者の選択事項として残る。
+
+## 名称・namespace・worker
+
+全textファイルを対象に大小文字とNFKC正規化、日本語variantsを確認し、禁止branding hitは0。私有absolute path hit0、代表的credential形式hit0。第三者のSDK・model名は正しい名称で保持されており、要求されたexport名称への変更対象と混同していない。
+
+実装はnavigator package、NAVIGATOR_設定、Navigator製品名を基準とする。子processのmodule参照はnavigatorを指し、XLSX workerはnavigator/workers/xlsx_builder.mjsに存在する。pyproject.tomlのpackage-dataはworkers/*.mjsを含む。MIME、template形式、image hash salt/signature等のnamespaceも変更され、古い隠しaliasは見つからなかった。
+
+READMEの旧store、saved receipt、template ID、pixel hashはwire互換でなくfresh storeを必要とする説明は適切である。旧receiptの再生試験は同じexport namespace内での保存policy差の再生であり、別namespaceのDB移行保証ではない。独立担当自身は実DB移行・wheel buildを実行せず、親が作成したwheel実物と実行summaryを照合した。
+
+## 同梱・秘密・依存
+
+新しいgit repositoryが初期化・stageされているが、commit0、remote0で旧historyを取り込んでいない。原本PDF/XLSX、DB、weights、tokenizer、log、archive、環境credentialファイル、SDKバイナリ、依存cacheはstageされたexportに含まれない。fixtureは小さな合成CSV/TXT/JSONで、実評価原本・gold・完全prompt・raw生成traceは同梱されていない。
+
+このscanは既知patternとファイル構成のレビューであり、すべての自由形式の秘密を数学的に不存在証明するものではない。公開直前にも最終allowlistで確認すべきで、test実行により生じるcache・evidence・一時DBを再帰的に無差別追加しない。
+
+DEPENDENCIES.mdはcore標準ライブラリとoptional依存を区別する。SDKは別途licenseが必要であり、THIRD_PARTY_NOTICES.mdがproprietary/confidential・内部評価/testing限定・再配布やproduction/commercial利用制限を記載する。SDK本体・wasm・npm依存・原SDK docsを同梱していない。integration workerの存在はSDK再配布licenseを意味しない。
+
+第三者modelの名称、pin/hashと必要な権利は保持し、weightsやmodel license自体の配布許可を主張していない。依存取得、モデル取得、ライセンス変更は行っていない。
+
+## 実処理・既定停止の独立確認
+
+exportにtests/test_export_independent.pyを追加し、以下4件を実行した。本体は編集していない。
+
+1. subprocessとHTTP transportを失敗mockにした状態で、APIの合成text ingest→job成功→検索結果まで実処理した。
+2. fresh Python processでAPI/contractをimportし、Torch、Transformers、safetensorsが読み込まれないことを確認した。
+3. native XLSX workerが既定では起動せず、明示opt-inなしはtyped capability failureとなること、worker実在とpackage-data宣言を確認した。
+4. 同梱openapi.jsonと現在のcontract exportが完全一致することを確認した。
+
+初回の独立試験1件はtest側のtitle大小文字の過度な仮定で失敗し、casefold比較へ直した。その後独立4件と関連既存22件を合わせて26件PASS。これはproductの未修正機能失敗ではない。追加した試験はnativeツール、モデル、外部推論を起動しない。
+
+関連試験ではactor/project分離、current権限での旧receipt拒否、generic reader既定停止・usage台帳halt、table bundle/旧policy再生を確認した。これらのdouble/mock成功は実model品質、SDK実出力、公開環境の安全性の資格ではない。
+
+CLIのsource-checkout startup、private synthetic principal生成、localhost bind、既定worker説明はコード上整合する。保存されたsmoke summaryは実HTTPによる合成byteの取込・job・検索・再起動・削除後receipt失効を確認している。独立担当は外部bindやcloud deploymentを実行していない。
+
+既存setuptoolsで依存取得なしのwheel buildが行われ、isolated wheelのinit-local/serve/health/authenticated ingestion→job→search/SIGTERMが成功した保存summaryを確認した。独立にwheel byteのhashをsummaryと照合し、wheel内実装全py/worker mjsがexportと一致すること、workerとTHIRD_PARTY_NOTICES.mdが実際に同梱されることを確認した。wheelはstageされたsource treeに含まれず、余分な配布binaryを混入させていない。
+
+## READMEの品質・外部試験記述
+
+小モデルの既知実資料8問で意味/根拠0/8、必要保留0/2、表context修正後も同じ既知4問で各ranking方式0/4・必要保留0/1という記述は過去の独立集計と一致する。名前を変えたexportで再評価した品質と呼ばず、過去集計の説明に限定している。
+
+過去の限定実写真OCRが3印字中0正答だったという追記も保存された旧品質記録と一致する。画像類似順位の成功をOCRや意味理解成功と読み替えていない。
+
+Gemini試験がstopped、generation0/countTokens0、既存metadata確認やmock試験は品質証明でないという記述も正確。条件付き承認の記録・grant・keyをexportへ移していない。paid tier・請求先・残予算の未確認を維持し、CLIから外部providerを有効化するflagがない。
+
+production-readyでないこと、認証は管理者所有のローカル試作でSSOでないこと、回答はsemantic未検証candidateのままであることを明示する。モデル品質・現場診断・一般multimodal semantic理解・敵対ファイルsandbox適格性などの未実装/未検証境界を拡大解釈していない。
+
+## 結論
+
+最終stageの96ファイル・1,746,239bytesを独立に読み、大小文字/NFKC/Unicode format文字除去/日本語variantの禁止branding hit0、私有absolute path hit0、代表credential形式hit0、runtime/binary混入0を確認した。新gitはcommit0/remote0。末尾空行1件は内容変更なしで修正済みで、最終stageのgit diff --cached --checkもPASSを確認した。
+
+指定名称への隔離exportと既定ローカル処理の範囲で、最終の重大な実装・梱包blockerは見つからなかった。初稿の文書不足も解消している。公開先・公開範囲・自身の配布licenseは所有者の未選択事項である。公開・push・外部推論を本レビューは承認も実行もしていない。

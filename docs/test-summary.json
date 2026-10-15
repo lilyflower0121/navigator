@@ -1,0 +1,13 @@
+{
+  "schema_version": "navigator-portable-tests-v1",
+  "tests_run": 450,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 1,
+  "skip_reasons": [
+    "Licensed XLSX worker not enabled; see DEPENDENCIES.md"
+  ],
+  "passed": true,
+  "seconds": 18.4006,
+  "scope": "synthetic software contracts; optional runtime skips explicit; no model quality measurement"
+}

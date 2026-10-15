@@ -1,0 +1,3 @@
+# Core API: Python >=3.11 standard library only. No pip dependencies required.
+# Optional local model dependencies are declared in pyproject.toml.
+# Native tools and the separately licensed XLSX worker are listed in DEPENDENCIES.md.

@@ -1,0 +1,22 @@
+{
+  "synthetic_only": true,
+  "execution_kind": "actual_bytes_http_sqlite_parser",
+  "mock_ai": false,
+  "external_calls": 0,
+  "model_loads": 0,
+  "assertions": {
+    "original_bytes_equal": true,
+    "restart_answer_equal": true,
+    "source_delete_removes_search": true,
+    "sqlite_cleartext_marker_removed": true
+  },
+  "deletion": {
+    "answers": "deleted_dependency",
+    "diagnoses": "deleted_dependency",
+    "reports": "deleted_dependency",
+    "original": "source_deleted",
+    "replayed_answer": "deleted_dependency",
+    "replayed_report": "deleted_dependency"
+  },
+  "resources_closed": true
+}
